@@ -10,7 +10,7 @@ public:
             map[nums[i]]++;
         }
         bool ans=true;
-        for(auto pair:map){
+        for(auto& pair:map){
             if(pair.first==maxi and pair.second!=2) ans=false;
             if(pair.first!=maxi and pair.second!=1) ans=false;
         }
