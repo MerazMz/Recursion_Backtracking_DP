@@ -30,6 +30,7 @@ public:
         for(int i=0;i<n;i++){
             ans = max (ans,solve(nums,i,d,dp));
         }
-        return *max_element(dp.begin(),dp.end());
+        // return *max_element(dp.begin(),dp.end());
+        return ans;
     }
 };
