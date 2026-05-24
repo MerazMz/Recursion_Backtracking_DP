@@ -1,5 +1,9 @@
 class Solution {
 public:
+
+    //traverse every index and for each index check all the possiblities 
+    //forward and backward (keep in mind of edge cases and nums[i]>=nums[idx])
+    //track best from both forward and backward and store it in dp vector
     int solve(vector<int>& nums, int idx, int d, vector<int>& dp){
         if(dp[idx]!=-1) return dp[idx];
         
@@ -26,6 +30,6 @@ public:
         for(int i=0;i<n;i++){
             ans = max (ans,solve(nums,i,d,dp));
         }
-        return ans;
+        return *max_element(dp.begin(),dp.end());
     }
 };
