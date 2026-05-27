@@ -25,7 +25,7 @@ public:
             for(auto e:g[u]){
                 int v = e.first;
                 int wt = e.second;
-                if(cost + wt < dist[v] and stop+1<=k){
+                if(dist[v] > cost + wt and stop+1<=k){
                     dist[v] = cost + wt;
                     q.push({dist[v],v,stop+1});
                 }
