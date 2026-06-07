@@ -11,28 +11,6 @@
  */
 class Solution {
 public:
-    int returnRoot(vector<vector<int>>& desc){
-        set<int> parent;
-        set<int> children;
-        for(auto node:desc){
-            int par = node[0];
-            int child = node[1];
-            parent.insert(par);
-            children.insert(child);
-        }
-        while(parent.size()!=1){
-            for(int n:children){
-                if(parent.count(n)){
-                    parent.erase(n);
-                }
-            }
-        }
-        int root = 0;
-        for(int n:parent){
-            root=n;
-        }
-        return root;
-    }
     TreeNode* createBinaryTree(vector<vector<int>>& desc) {
         set<int> children;
         unordered_map<int,TreeNode*> map;
@@ -44,53 +22,25 @@ public:
 
             children.insert(child);
 
-            if(!map.count(par)){ //agar nhi h bana hua to new parent banao
-                TreeNode* newNode = new TreeNode(par); 
-
-                if(!map.count(child)){ //agar uska child bhi bhi hai to wo bhi banao
-                    TreeNode* childNode = new TreeNode(child);
-                    if(isLeft){
-                        newNode->left = childNode;
-                    }else{
-                        newNode->right = childNode;
-                    }
-                    map[child]=childNode;
-                }else{
-                    if(isLeft){
-                        newNode->left = map[child];
-                    }else{
-                        newNode->right = map[child];
-                    }
-                }
-                map[par]=newNode;
+            if(!map.count(par)){
+                map[par] = new TreeNode(par);
+            }
+            if(!map.count(child)){
+                map[child] = new TreeNode(child);
+            }
+            if(isLeft){
+                map[par]->left = map[child];
             }else{
-                if(!map.count(child)){ //agar uska child bhi bhi hai to wo bhi banao
-                    TreeNode* childNode = new TreeNode(child);
-                    if(isLeft){
-                        map[par]->left = childNode;
-                    }else{
-                        map[par]->right = childNode;
-                    }
-                    map[child]=childNode;
-                }else{
-                    if(isLeft){
-                        map[par]->left = map[child];
-                    }else{
-                        map[par]->right = map[child];
-                    }
-                }
+                map[par]->right = map[child];
             }
         }
         int root=0;
         for(auto e:desc){
             int par = e[0];
             if(!children.count(par)){
-                root=par;
+                return map[par];
             }
         }
-        return map[root];
-
-
-
+        return NULL;
     }
 };
