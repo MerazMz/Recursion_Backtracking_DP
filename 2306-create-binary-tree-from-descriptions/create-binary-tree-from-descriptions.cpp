@@ -34,13 +34,16 @@ public:
         return root;
     }
     TreeNode* createBinaryTree(vector<vector<int>>& desc) {
-        int root = returnRoot(desc);
+        set<int> children;
         unordered_map<int,TreeNode*> map;
 
         for(auto node:desc){
             int par = node[0];
             int child = node[1];
             bool isLeft = node[2]==1;
+
+            children.insert(child);
+
             if(!map.count(par)){ //agar nhi h bana hua to new parent banao
                 TreeNode* newNode = new TreeNode(par); 
 
@@ -78,8 +81,13 @@ public:
                 }
             }
         }
-
-
+        int root=0;
+        for(auto e:desc){
+            int par = e[0];
+            if(!children.count(par)){
+                root=par;
+            }
+        }
         return map[root];
 
 
